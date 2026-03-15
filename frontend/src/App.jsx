@@ -2,14 +2,14 @@ import './App.css'
 
 function App() {
   const metrics = [
-    { title: 'VM CPU Usage', value: '32%', status: 'Healthy' },
-    { title: 'Storage Usage', value: '68%', status: 'Warning' },
-    { title: 'Active Alerts', value: '1', status: 'Attention' },
+    { title: 'VM CPU Usage', value: '23%', status: 'Healthy' },
+    { title: 'Storage Usage', value: '79%', status: 'Warning' },
+    { title: 'Active Alerts', value: '3', status: 'Attention' },
   ]
 
   const resources = [
-    { name: 'vm-demo-01', type: 'Virtual Machine', status: 'Running', region: 'UK South' },
-    { name: 'stmonitor001', type: 'Storage Account', status: 'Healthy', region: 'UK South' },
+    { name: 'lavm23', type: 'Virtual Machine', status: 'Running', region: 'UK South' },
+    { name: 'lastorage', type: 'Storage Account', status: 'Healthy', region: 'UK South' },
     { name: 'func-monitor-api', type: 'Function App', status: 'Healthy', region: 'UK South' },
   ]
 
@@ -17,7 +17,7 @@ function App() {
     <div className="app-shell">
       <header className="topbar">
         <div>
-          <h1>Azure Resource Monitoring Dashboard</h1>
+          <h1>LA's Resource Monitoring Dashboard</h1>
           <p className="subtitle">Mock monitoring data for portfolio build</p>
         </div>
         <div className="last-updated">Last updated: just now</div>
@@ -62,10 +62,10 @@ function App() {
 
       <section className="panel alerts-panel">
         <div className="panel-header">
-          <h2>Alerts</h2>
+          <h2>Important Alerts</h2>
         </div>
         <div className="alert warning">
-          Storage usage exceeded 65% on stmonitor001
+          Storage usage exceeded 78% on lastorage
         </div>
       </section>
     </div>

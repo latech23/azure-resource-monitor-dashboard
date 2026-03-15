@@ -51,10 +51,10 @@ body {
 }
 
 .card {
-  background: #1e293b;
-  border: 1px solid #334155;
-  border-radius: 14px;
-  padding: 20px;
+  background: #0853cb;
+  border: 4px solid #c9cdd2;
+  border-radius: 10px;
+  padding: 40px;
 }
 
 .card-label {
@@ -124,6 +124,6 @@ th {
 
 .alert.warning {
   background: rgba(245, 158, 11, 0.12);
-  border: 1px solid rgba(245, 158, 11, 0.45);
-  color: #fbbf24;
+  border: 4px solid rgb(250, 216, 25);
+  color: #fb2424;
 }
