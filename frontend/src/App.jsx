@@ -37,6 +37,22 @@ export default function App() {
         setMetrics(metricsData.metrics || []);
         setStorage(storageData.storage || []);
         setAlerts(alertsData.alerts || []);
+        // Alert logic — trigger if CPU > 80%
+        
+ const latest = metricsData.metrics?.[metricsData.metrics.length - 1];
+        if (latest && latest.avgCPU > 80) {
+          await fetch(`/api/getAlerts`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              resourceName: "vm-monitor-test",
+              severity: "high",
+              message: `CPU usage is ${latest.avgCPU.toFixed(1)}% — above 80% threshold`
+            })
+          });
+        }
+        
+        
       } catch (err) {
         setError(err.message);
       } finally {
@@ -50,7 +66,7 @@ export default function App() {
   }, []);
 
   const latestCPU = metrics.length > 0 ? metrics[metrics.length - 1].avgCPU?.toFixed(1) : "—";
-  const latestStorage = storage.length > 0 ? (storage[storage.length - 1].usedCapacity / 1024 / 1024).toFixed(2) : "—";
+  const latestStorage = storage.length > 0 && storage[storage.length - 1].usedCapacity != null ? (storage[storage.length - 1].usedCapacity / 1024 / 1024).toFixed(2) : "0.00";
   const cpuStatus = latestCPU > 80 ? "critical" : latestCPU > 60 ? "warning" : "ok";
 
   if (loading) return <div style={{ color: "#fff", padding: 40, background: "#13131f", minHeight: "100vh" }}>Loading dashboard...</div>;
