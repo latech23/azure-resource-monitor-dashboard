@@ -32,7 +32,7 @@ app.http('getStorageMetrics', {
             };
 
         } catch (error) {
-            context.log.error('Error querying storage metrics:', error);
+            context.error('Error querying storage metrics:', error);
             return {
                 status: 500,
                 body: JSON.stringify({ error: error.message })

@@ -37,7 +37,7 @@ app.http('getMetrics', {
             };
 
         } catch (error) {
-            context.log.error('Error querying metrics:', error);
+            context.error('Error querying metrics:', error);
             return {
                 status: 500,
                 body: JSON.stringify({ error: error.message })

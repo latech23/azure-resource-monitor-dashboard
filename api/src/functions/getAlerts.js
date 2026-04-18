@@ -56,7 +56,7 @@ app.http('getAlerts', {
             }
 
         } catch (error) {
-            context.log.error('Error with alerts:', error);
+            context.error('Error with alerts:', error);
             return {
                 status: 500,
                 body: JSON.stringify({ error: error.message })
