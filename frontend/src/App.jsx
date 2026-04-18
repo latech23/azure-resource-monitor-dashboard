@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
 
-const API_BASE = "/api";
+const API_BASE = import.meta.env.VITE_API_BASE || "/api";
 
 function MetricCard({ title, value, unit, status }) {
   const statusColor = status === "ok" ? "#22c55e" : status === "warning" ? "#f59e0b" : "#ef4444";
@@ -38,7 +38,7 @@ export default function App() {
         setStorage(storageData.storage || []);
         setAlerts(alertsData.alerts || []);
         // Alert logic — trigger if CPU > 80%
-        
+
  const latest = metricsData.metrics?.[metricsData.metrics.length - 1];
         if (latest && latest.avgCPU > 80) {
           await fetch(`/api/getAlerts`, {
