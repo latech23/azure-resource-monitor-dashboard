@@ -1,13 +1,27 @@
-# azure-resource-monitor-dashboard
-azure-resource-monitor-dashboard project
 # Azure Resource Monitor Dashboard
 
-A full-stack cloud monitoring dashboard built on Azure, displaying live VM CPU metrics, storage capacity, and automated alerting — all visualised in a real-time React frontend.
+A full-stack cloud monitoring dashboard built on Azure. It pulls live VM CPU metrics and storage data through Log Analytics and Azure Monitor, fires off automated alerts when thresholds are hit, and displays everything in a real-time React frontend.
 
-## Live Demo
-🔗 [View Dashboard](https://purple-hill-079932503.7.azurestaticapps.net)
+> **Note:** Azure resources have been deprovisioned to keep costs down. Screenshots below show the dashboard running.
 
-## Architecture
+---
+
+## Why I built this
+
+I was studying for AZ-104 and wanted to actually build something rather than just read about the services. So I put together a project that tied together a few of the core Azure concepts (monitoring, serverless functions, storage, and auth) into something that works end to end.
+
+A few decisions I made along the way: I used Managed Identity instead of connection strings so there are no secrets sitting in the code, went with Azure Functions on Flex Consumption to avoid paying for idle time, and used KQL to query Log Analytics directly because it gave me more control over how the data was shaped before hitting the frontend.
+
+---
+
+## Screenshots
+
+><img width="2048" height="1259" alt="1776544544245" src="https://github.com/user-attachments/assets/575ab099-8802-4836-aab3-b1324a21d07b" />
+<img width="2048" height="1273" alt="1776544544370" src="https://github.com/user-attachments/assets/15f8405a-a534-4e67-91ed-563c0ce2b704" />
+<img width="2048" height="964" alt="1776544544333" src="https://github.com/user-attachments/assets/2ca125a5-394d-4ec2-bb61-3f483364568b" />
+
+
+---
 
 ## Tech Stack
 
@@ -22,15 +36,19 @@ A full-stack cloud monitoring dashboard built on Azure, displaying live VM CPU m
 | CI/CD | GitHub Actions |
 | IaC | Azure Portal + Azure CLI |
 
+---
+
 ## Features
 
-- **Live CPU Monitoring** — queries Log Analytics every 30 seconds using KQL
-- **Storage Tracking** — monitors Azure Storage account capacity via Azure Monitor Metrics API
-- **Automated Alerts** — triggers and persists alerts to Table Storage when CPU exceeds 80%
-- **Real-time Chart** — visualises CPU usage over the last hour
-- **Futuristic UI** — dark navy/cyan dashboard with glowing metric cards
+- **Live CPU monitoring** — queries Log Analytics every 30 seconds via KQL, shown as a rolling chart
+- **Storage tracking** — monitors Azure Storage capacity using the Azure Monitor Metrics API
+- **Automated alerts** — when CPU goes over 80%, an alert is triggered and saved to Table Storage
+- **Passwordless auth** — Managed Identity handles all service communication, no credentials in code
+- **CI/CD pipeline** — GitHub Actions deploys to Azure Static Web Apps automatically on every push to main
 
-## Azure Services Used
+---
+
+## Azure services used
 
 - Azure Monitor
 - Log Analytics Workspace
@@ -42,9 +60,12 @@ A full-stack cloud monitoring dashboard built on Azure, displaying live VM CPU m
 - Data Collection Rules (DCR)
 - Network Security Groups
 
-## Local Development
+---
+
+## Local development
 
 ### Prerequisites
+
 - Node.js 20
 - Azure Functions Core Tools v4
 - Azure CLI
@@ -52,32 +73,28 @@ A full-stack cloud monitoring dashboard built on Azure, displaying live VM CPU m
 ### Setup
 
 ```bash
-# Clone the repo
 git clone https://github.com/latech23/azure-resource-monitor-dashboard.git
 cd azure-resource-monitor-dashboard
 
-# Install API dependencies
 cd api && npm install
-
-# Install frontend dependencies
 cd ../frontend && npm install
 ```
 
-### Running Locally
+### Running locally
 
 ```bash
-# Terminal 1 — start the API
+# Terminal 1 — API
 cd api
 func start
 
-# Terminal 2 — start the frontend
+# Terminal 2 — Frontend
 cd frontend
 npm run dev
 ```
 
 Visit `http://localhost:5173`
 
-### Environment Variables
+### Environment variables
 
 Create `api/local.settings.json`:
 
@@ -93,5 +110,8 @@ Create `api/local.settings.json`:
 }
 ```
 
-## Project Status
-✅ Complete — built as part of AZ-104 certification study to reinforce Azure Monitor, Log Analytics, and cloud architecture concepts.
+---
+
+## What I took from this
+
+Getting hands-on with how Azure Monitor, DCRs, and Log Analytics actually fit together was probably the biggest thing. It's one of those areas that makes more sense once you've wired it up yourself. Also got comfortable with KQL, setting up a proper CI/CD pipeline, and understanding why Managed Identity is the right approach over storing credentials.
